@@ -1,0 +1,31 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/racq-bank-cds-banking-products-openapi.yml
+docs: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+versioning:
+  scheme: header-negotiated
+  request_header: x-v
+  min_request_header: x-min-v
+  response_header: x-v
+  current_served: ['4', '5']
+  detail: >-
+    Endpoint versions are negotiated per request via the x-v header rather than
+    a URI path version. The DSB increments endpoint versions independently; the
+    Consumer Data Standards changelog (not RACQ-specific) is the source of
+    truth. The captured spec targets Consumer Data Standards v1.36.0.
+  standards_version: 1.36.0
+deprecation:
+  policy_url: null
+  sunset_header: false
+  detail: >-
+    RACQ Bank publishes no bank-specific deprecation policy. Endpoint version
+    deprecation is governed centrally by the DSB via the CDS versioning and
+    Future Dated Obligations process, not by a per-provider Sunset header.
+sla:
+  url: null
+  detail: >-
+    No RACQ-specific SLA is published for the PRD channel. CDR availability and
+    performance obligations are set by the Consumer Data Standards.
+status_page: null
+status_page_note: No RACQ Bank API status page found (probed racq.com.au 2026-07-20).
+deprecated_operations: []

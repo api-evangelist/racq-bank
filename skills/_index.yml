@@ -1,0 +1,7 @@
+generated: '2026-07-20'
+method: generated
+skills:
+  - file: racq-bank-lookup-banking-products.md
+    name: Look up RACQ Bank banking products
+    api: openapi/racq-bank-cds-banking-products-openapi.yml
+    operations: [listBankingProducts, getBankingProductDetail]

@@ -53,6 +53,30 @@ apis:
     /banking/products/{productId}. Confirmed live (HTTP 200, x-v 4 and x-v 5, 39
     products) at https://cdrbank.racq.com.au/cds-au/v1.
 common:
+- type: AgenticAccess
+  url: agentic-access/racq-bank-agentic-access.yml
+- type: DomainSecurity
+  url: security/racq-bank-domain-security.yml
+- type: Authentication
+  url: authentication/racq-bank-authentication.yml
+- type: Conventions
+  url: conventions/racq-bank-conventions.yml
+- type: ErrorCatalog
+  url: errors/racq-bank-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/racq-bank-lifecycle.yml
+- type: Conformance
+  url: conformance/racq-bank-conformance.yml
+- type: DataModel
+  url: data-model/racq-bank-data-model.yml
+- type: MCPServer
+  url: mcp/racq-bank-mcp.yml
+- type: LLMsTxt
+  url: llms/racq-bank-llms.txt
+- type: Overlay
+  url: overlays/racq-bank-cds-banking-products-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
 - type: Website
   url: https://www.racq.com.au/
 - type: Documentation

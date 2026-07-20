@@ -1,0 +1,35 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.racq.com.au/banking/open-banking/api-access
+docs: https://consumerdatastandardsaustralia.github.io/standards/#security-profile
+summary:
+  types: [none, oauth2, openIdConnect, mutualTLS]
+  api_key_in: []
+  oauth2_flows: [authorizationCode]
+  notes: >-
+    RACQ Bank operates two distinct access channels under Australia's Consumer
+    Data Right (CDR). The Product Reference Data (PRD) endpoints are PUBLIC and
+    require NO authentication. The consumer data-sharing endpoints (accounts,
+    balances, transactions, direct debits, scheduled payments, payees) are only
+    reachable by an accredited data recipient (ADR) under the CDR security
+    profile and are not usable with a client-issued credential.
+channels:
+  - name: Product Reference Data (PRD)
+    auth: none
+    public: true
+    operations: [listBankingProducts, getBankingProductDetail]
+    evidence: "RACQ api-access page states: 'Authentication is not required to access the Product APIs.'"
+    base_url: https://cdrbank.racq.com.au/cds-au/v1
+  - name: Consumer Data Sharing
+    auth: [oauth2, openIdConnect, mutualTLS]
+    public: false
+    profile: CDR Security Profile (built on FAPI 1.0 Advanced + OIDC + PAR)
+    requires: Accreditation as a CDR Accredited Data Recipient (ADR) by the ACCC
+    mechanisms:
+      - OAuth 2.0 authorization_code flow with PKCE
+      - OpenID Connect (hybrid / authorization code)
+      - Pushed Authorization Requests (PAR, RFC 9126)
+      - Mutual TLS (MTLS) client authentication and sender-constrained tokens
+      - private_key_jwt client authentication
+    docs: https://consumerdatastandardsaustralia.github.io/standards/#security-profile
+schemes: []

@@ -1,0 +1,24 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for RACQ Bank CDR Banking API
+  version: 1.0.0
+extends: openapi/racq-bank-cds-banking-products-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: racq-bank
+      x-apievangelist-cdr-role: data-holder
+      x-apievangelist-public-channel: product-reference-data
+      x-apievangelist-standard: DSB Consumer Data Standards v1.36.0
+  - target: $.servers
+    update:
+      - url: https://cdrbank.racq.com.au/cds-au/v1
+        description: RACQ Bank production CDR base (PRD endpoints are public/unauthenticated)
+  - target: "$.paths['/banking/products'].get"
+    update:
+      x-apievangelist-public: true
+      x-apievangelist-auth: none
+  - target: "$.paths['/banking/products/{productId}'].get"
+    update:
+      x-apievangelist-public: true
+      x-apievangelist-auth: none

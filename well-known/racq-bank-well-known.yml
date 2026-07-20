@@ -1,0 +1,23 @@
+generated: '2026-07-20'
+method: probed
+source: live HTTP probes 2026-07-20
+note: >-
+  Probed the RACQ Bank API host and corporate host for standard discovery
+  documents. None are published. The CDR OIDC/OAuth discovery metadata lives on
+  a separate accredited-channel infosec baseURL that RACQ does not expose
+  publicly. Absence recorded as valid data; no WellKnown catalog pointer wired.
+hosts:
+  - host: https://cdrbank.racq.com.au
+    documents:
+      - { path: /.well-known/security.txt, status: 403 }
+      - { path: /.well-known/openid-configuration, status: 403 }
+      - { path: /.well-known/oauth-authorization-server, status: 403 }
+      - { path: /.well-known/api-catalog, status: 403 }
+      - { path: /.well-known/ai-plugin.json, status: 403 }
+  - host: https://www.racq.com.au
+    documents:
+      - { path: /.well-known/security.txt, status: 404 }
+      - { path: /.well-known/openid-configuration, status: 404 }
+      - { path: /.well-known/oauth-authorization-server, status: 404 }
+      - { path: /.well-known/api-catalog, status: 404 }
+      - { path: /.well-known/ai-plugin.json, status: 404 }

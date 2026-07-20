@@ -1,0 +1,42 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/racq-bank-cds-banking-products-openapi.yml
+status: candidate
+note: >-
+  No official RACQ Bank MCP server exists. This is a candidate tool list derived
+  from the OpenAPI operations. Only the two Product Reference Data tools are
+  usable without accreditation; the account-scoped tools require the CDR
+  accredited-data-recipient channel and are listed for completeness.
+server:
+  name: racq-bank
+  transport: http
+  url: null
+tools:
+  - name: list_banking_products
+    description: List RACQ Bank's publicly offered banking products (PRD, unauthenticated).
+    public: true
+    source_operation: openapi/racq-bank-cds-banking-products-openapi.yml#listBankingProducts
+  - name: get_banking_product_detail
+    description: Get full detail for a single RACQ Bank product by productId (PRD, unauthenticated).
+    public: true
+    source_operation: openapi/racq-bank-cds-banking-products-openapi.yml#getBankingProductDetail
+  - name: list_banking_accounts
+    description: List a consumer's accounts (requires CDR accredited data recipient).
+    public: false
+    source_operation: openapi/racq-bank-cds-banking-products-openapi.yml#listBankingAccounts
+  - name: get_banking_account_detail
+    description: Get detail for one account (requires CDR ADR).
+    public: false
+    source_operation: openapi/racq-bank-cds-banking-products-openapi.yml#getBankingAccountDetail
+  - name: get_banking_balance
+    description: Get the balance for one account (requires CDR ADR).
+    public: false
+    source_operation: openapi/racq-bank-cds-banking-products-openapi.yml#getBankingBalance
+  - name: list_banking_transactions
+    description: List transactions for an account (requires CDR ADR).
+    public: false
+    source_operation: openapi/racq-bank-cds-banking-products-openapi.yml#listBankingTransactions
+  - name: list_banking_payees
+    description: List a consumer's saved payees (requires CDR ADR).
+    public: false
+    source_operation: openapi/racq-bank-cds-banking-products-openapi.yml#listBankingPayees

@@ -1,0 +1,86 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/racq-bank-cds-banking-products-openapi.yml
+note: >-
+  Entity-relationship graph derived from the CDS Banking API schemas and the
+  path-parameter reference structure (accountId, productId, transactionId,
+  payeeId). Only the Product entity is reachable on RACQ's public PRD channel;
+  the account-scoped entities require the accredited data-sharing channel.
+id_fields:
+  product: productId
+  account: accountId
+  transaction: transactionId
+  payee: payeeId
+  scheduled_payment: scheduledPaymentId
+entities:
+  - name: Product
+    public: true
+    schema: BankingProductV6 / BankingProductDetailV7
+    id: productId
+    description: A publicly offered banking product (accounts, term deposits, loans, credit cards).
+    operations: [listBankingProducts, getBankingProductDetail]
+  - name: Account
+    public: false
+    schema: BankingAccountV3 / BankingAccountDetailV5
+    id: accountId
+    operations: [listBankingAccounts, getBankingAccountDetail]
+  - name: Balance
+    public: false
+    schema: BankingBalance
+    operations: [getBankingBalance, listBankingBalancesBulk, listBankingBalancesSpecificAccounts]
+  - name: Transaction
+    public: false
+    schema: BankingTransactionV2 / BankingTransactionDetailV3
+    id: transactionId
+    operations: [listBankingTransactions, getBankingTransactionDetail]
+  - name: DirectDebit
+    public: false
+    schema: BankingDirectDebit
+    operations: [listDirectDebits, listDirectDebitsBulk, listDirectDebitsSpecificAccounts]
+  - name: ScheduledPayment
+    public: false
+    schema: BankingScheduledPaymentV2
+    id: scheduledPaymentId
+    operations: [listScheduledPayments, listScheduledPaymentsBulk, listScheduledPaymentsSpecificAccounts]
+  - name: InstalmentPlan
+    public: false
+    schema: ResponseBankingInstalmentPlanList
+    operations: [listInstalmentPlans, listInstalmentPlansBulk]
+  - name: Payee
+    public: false
+    schema: BankingPayeeV2 / BankingPayeeDetailV2
+    id: payeeId
+    operations: [listBankingPayees, getBankingPayeeDetail]
+relationships:
+  - from: Account
+    to: Product
+    kind: belongs_to
+    via: productCategory
+  - from: Account
+    to: Balance
+    kind: has_one
+    via: accountId
+  - from: Account
+    to: Transaction
+    kind: has_many
+    via: accountId
+  - from: Transaction
+    to: Account
+    kind: belongs_to
+    via: accountId
+  - from: Account
+    to: DirectDebit
+    kind: has_many
+    via: accountId
+  - from: Account
+    to: ScheduledPayment
+    kind: has_many
+    via: accountId
+  - from: Account
+    to: InstalmentPlan
+    kind: has_many
+    via: accountId
+  - from: ScheduledPayment
+    to: Payee
+    kind: has_one
+    via: payeeReference

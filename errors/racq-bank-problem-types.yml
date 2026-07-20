@@ -1,0 +1,49 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/racq-bank-cds-banking-products-openapi.yml
+docs: https://consumerdatastandardsaustralia.github.io/standards/#error-codes
+format: cds-response-error-list
+note: >-
+  RACQ Bank's CDR Banking API does NOT use RFC 9457 problem+json. Errors use the
+  Consumer Data Standards ResponseErrorList envelope: a top-level errors[] array
+  where each entry has code, title, detail and an optional meta object. The
+  code is a URN (urn:au-cds:error:v2:...) drawn from the standardised CDS error
+  code catalogue, or a respondent-specific code that extends a CDS URN.
+envelope:
+  media_type: application/json
+  schema: ResponseErrorListV2
+  error_item: "code (URN string), title (string), detail (string), meta (object, optional)"
+problems:
+  - status: 400
+    title: Bad Request / Invalid Field
+    description: >-
+      Request was malformed or a field failed validation (e.g. invalid
+      product-category, malformed page/page-size, invalid updated-since).
+    cds_codes:
+      - urn:au-cds:error:v2:Field/Invalid
+      - urn:au-cds:error:v2:Field/Missing
+      - urn:au-cds:error:v2:Field/InvalidPageSize
+      - urn:au-cds:error:v2:Field/InvalidPage
+    source_operations: [listBankingProducts, getBankingProductDetail]
+  - status: 404
+    title: Not Found / Invalid Resource
+    description: The requested resource (e.g. productId) does not exist.
+    cds_codes:
+      - urn:au-cds:error:v2:Resource/NotFound
+      - urn:au-cds:error:v2:Resource/Invalid
+    source_operations: [getBankingProductDetail]
+  - status: 406
+    title: Not Acceptable / Unsupported Version
+    description: >-
+      No requested endpoint version could be served for the supplied x-v /
+      x-min-v headers, or the Accept header is unsupported.
+    cds_codes:
+      - urn:au-cds:error:v2:Header/InvalidVersion
+      - urn:au-cds:error:v2:Header/UnsupportedVersion
+    source_operations: [listBankingProducts, getBankingProductDetail]
+  - status: 422
+    title: Unprocessable Entity
+    description: Request was syntactically valid but could not be processed.
+    cds_codes:
+      - urn:au-cds:error:v2:Field/Unsupported
+    source_operations: [listBankingProducts]

@@ -1,0 +1,60 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/racq-bank-cds-banking-products-openapi.yml
+docs: https://consumerdatastandardsaustralia.github.io/standards/#http-headers
+summary: >-
+  Cross-cutting request/response semantics for RACQ Bank's CDR Banking API,
+  which implements the DSB Consumer Data Standards (CDS). All conventions below
+  are mandated by the CDS and shared by every Australian CDR data holder; RACQ
+  inherits them by conformance rather than defining a house style.
+authentication:
+  style: none-for-prd
+  detail: PRD endpoints are unauthenticated; data-sharing endpoints use the CDR security profile.
+  see: authentication/racq-bank-authentication.yml
+versioning:
+  scheme: header-negotiated
+  request_header: x-v
+  request_min_header: x-min-v
+  response_header: x-v
+  detail: >-
+    Clients request an endpoint version via the x-v header (and optionally a
+    minimum acceptable version via x-min-v). The server echoes the served
+    version in the x-v response header. A 406 is returned when no requested
+    version can be served. RACQ's live PRD endpoints respond to x-v 4 and x-v 5.
+  see: lifecycle/racq-bank-lifecycle.yml
+pagination:
+  style: page-number
+  params:
+    page: page
+    page_size: page-size
+  response_links: [self, first, prev, next, last]
+  response_meta: [totalRecords, totalPages]
+  detail: >-
+    List endpoints are paginated with page / page-size query parameters. The
+    envelope carries a links object (LinksPaginated) and a meta object
+    (MetaPaginated) with totalRecords and totalPages.
+request_tracing:
+  header: x-fapi-interaction-id
+  detail: >-
+    The CDS uses the FAPI interaction id header for request correlation on the
+    authenticated data-sharing endpoints. It is optional/echoed on PRD.
+idempotency:
+  supported: false
+  detail: >-
+    The API is read-only (GET, plus a handful of POST list-by-account-id
+    request endpoints on the authenticated channel). There is no resource
+    creation and no documented idempotency-key contract.
+metadata:
+  detail: Response envelope carries a top-level meta object per the CDS response schema.
+error_envelope:
+  format: cds-response-error-list
+  shape: "{ errors: [ { code, title, detail, meta? } ] }"
+  code_style: URN (urn:au-cds:error:v2:...) or respondent application-specific code
+  not_rfc9457: true
+  see: errors/racq-bank-problem-types.yml
+rate_limiting:
+  detail: >-
+    Rate limits for CDR are governed by the Consumer Data Standards (traffic
+    thresholds for unattended vs customer-present calls); RACQ publishes no
+    additional per-endpoint limits on the PRD channel.
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#traffic-thresholds

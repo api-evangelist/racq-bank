@@ -1,0 +1,61 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/racq-bank-cds-banking-products-openapi.yml
+docs: https://consumerdatastandardsaustralia.github.io/standards/
+note: >-
+  Standards conformance derived from the captured OpenAPI (which is the DSB
+  Consumer Data Standards Banking API) plus RACQ's published api-access page.
+  RACQ Bank is an accredited CDR data holder; the PRD channel is a conformant
+  implementation of the CDS Product Reference Data endpoints.
+standards:
+  - id: cds-banking
+    name: DSB Consumer Data Standards - Banking APIs
+    conforms: true
+    evidence: OpenAPI is the CDS Banking API v1.36.0; live PRD endpoints served at cdrbank.racq.com.au/cds-au/v1
+  - id: cdr-product-reference-data
+    name: CDR Product Reference Data (PRD)
+    conforms: true
+    evidence: GET /banking/products and GET /banking/products/{productId} live and unauthenticated (HTTP 200, x-v 4/5)
+  - id: cds-error-codes
+    name: CDS ResponseErrorList error format
+    conforms: true
+    evidence: 4xx responses use ResponseErrorListV2 (errors[] code/title/detail), not RFC 9457
+  - id: cds-pagination
+    name: CDS page/page-size pagination
+    conforms: true
+    evidence: LinksPaginated + MetaPaginated (totalRecords/totalPages) on list endpoints
+  - id: cds-versioning
+    name: CDS header version negotiation (x-v / x-min-v)
+    conforms: true
+    evidence: x-v request/response headers on all operations
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: true
+    scope: consumer-data-sharing-channel-only
+    evidence: CDR security profile mandates OAuth2 authorization_code for the accredited channel (not used by PRD)
+  - id: oidc
+    name: OpenID Connect
+    conforms: true
+    scope: consumer-data-sharing-channel-only
+    evidence: CDR security profile mandates OIDC
+  - id: fapi
+    name: FAPI 1.0 Advanced (CDR Security Profile)
+    conforms: true
+    scope: consumer-data-sharing-channel-only
+    evidence: CDR security profile is built on FAPI 1.0 Advanced + PAR + MTLS
+  - id: rfc9126-par
+    name: Pushed Authorization Requests (RFC 9126)
+    conforms: true
+    scope: consumer-data-sharing-channel-only
+    evidence: PAR required by the CDR security profile
+  - id: rfc9457-problem-details
+    name: RFC 9457 Problem Details
+    conforms: false
+    evidence: Uses CDS ResponseErrorList envelope instead
+  - id: fhir-r4
+    name: HL7 FHIR R4
+    conforms: false
+  - id: psd2
+    name: PSD2
+    conforms: false
+    evidence: Australian CDR regime, not EU PSD2

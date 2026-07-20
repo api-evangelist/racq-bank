@@ -1,0 +1,27 @@
+# RACQ Bank
+
+> RACQ Bank is the retail banking division of RACQ (The Royal Automobile Club of Queensland), a member-owned mutual and Australian authorised deposit-taking institution (ADI) regulated by APRA. As an active data holder under Australia's Consumer Data Right (CDR / Open Banking), RACQ Bank exposes a public, unauthenticated Product Reference Data (PRD) API conforming to the DSB Consumer Data Standards, alongside the accredited consumer-data-sharing channel mandated of every Australian bank.
+
+## APIs
+
+- [RACQ Bank CDR Product Reference Data API](https://www.racq.com.au/banking/open-banking/api-access): Public, unauthenticated CDS Banking PRD API. Base: https://cdrbank.racq.com.au/cds-au/v1 — GET /banking/products and GET /banking/products/{productId}.
+
+## Specs
+
+- [OpenAPI (CDS Banking API v1.36.0)](https://raw.githubusercontent.com/api-evangelist/racq-bank/refs/heads/main/openapi/racq-bank-cds-banking-products-openapi.yml)
+
+## Standards & Conventions
+
+- [Consumer Data Standards Australia](https://consumerdatastandardsaustralia.github.io/standards/): the standard RACQ implements (versioning via x-v/x-min-v headers, page/page-size pagination, ResponseErrorList error format).
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/racq-bank/refs/heads/main/authentication/racq-bank-authentication.yml): PRD is unauthenticated; data-sharing uses the CDR Security Profile (OAuth2 + OIDC + FAPI 1.0 Advanced + PAR + MTLS).
+- [API conventions](https://raw.githubusercontent.com/api-evangelist/racq-bank/refs/heads/main/conventions/racq-bank-conventions.yml)
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/racq-bank/refs/heads/main/errors/racq-bank-problem-types.yml)
+- [Conformance](https://raw.githubusercontent.com/api-evangelist/racq-bank/refs/heads/main/conformance/racq-bank-conformance.yml)
+- [Data model](https://raw.githubusercontent.com/api-evangelist/racq-bank/refs/heads/main/data-model/racq-bank-data-model.yml)
+
+## Docs
+
+- [Open Banking / API access](https://www.racq.com.au/banking/open-banking/api-access)
+- [What is Open Banking](https://www.racq.com.au/banking/open-banking)
+- [Consumer Data Standards - Banking APIs reference](https://consumerdatastandardsaustralia.github.io/standards/#banking-apis)
+- [Support & FAQs](https://www.racq.com.au/banking/support-and-faqs) — technical API contact: icc_support@racq.com.au
