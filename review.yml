@@ -1,0 +1,85 @@
+aid: racq-bank
+name: RACQ Bank
+review:
+  question: Does RACQ Bank expose a live public CDR Product Reference Data API, and does it run any developer portal beyond the mandated Consumer Data Right surface?
+  answer: true
+  date: '2026-07-20'
+  reviewer: API Evangelist
+  cdrPrdConfirmed: true
+  developerPortal: false
+  specProvenance: DSB Consumer Data Standards (shared standard) - not a bank-proprietary contract
+findings:
+  summary: |
+    RACQ Bank, the retail banking division of the member-owned mutual RACQ (The
+    Royal Automobile Club of Queensland), is an active Consumer Data Right (CDR)
+    data holder. Its public, unauthenticated Product Reference Data (PRD) API is
+    confirmed live: GET https://cdrbank.racq.com.au/cds-au/v1/banking/products
+    returns HTTP 200 with header x-v: 4 (also serves x-v: 5) and a data.products
+    array with meta.totalRecords 39. RACQ publishes a human-facing open banking
+    "API access" page at https://www.racq.com.au/banking/open-banking/api-access
+    (HTTP 200) that documents the two public product endpoints
+    (/banking/products and /banking/products/{productId}), states "Authentication
+    is not required to access the Product APIs," and gives support contact
+    icc_support@racq.com.au. This is the only publicly documented, unauthenticated
+    API surface. RACQ Bank does NOT operate a broader developer portal -
+    developer.racq.com.au does not resolve (DNS/connection failure) and there is
+    no Up-style personal-banking developer API. All other CDR banking APIs
+    (accounts, transactions, balances, payees, direct debits) are consumer-data
+    endpoints that are NOT public: they require the accredited-data-recipient
+    (ADR) model with OAuth2/OIDC FAPI-profile authorization, MTLS, and consumer
+    consent per the CDR regime, and are out of scope for unauthenticated harvest.
+
+    Ownership note: RACQ is a member-owned mutual organisation; its banking arm
+    traces to QT Mutual Bank, which merged with RACQ in 2016. RACQ Bank operates
+    as an APRA-regulated ADI under the racq.com.au brand.
+  specProvenanceNote: |
+    The harvested OpenAPI at openapi/racq-bank-cds-banking-products-openapi.yml is
+    the Data Standards Body (DSB) CDR Banking API standard (title "CDR Banking
+    API", version 1.36.0, contact contact@dsb.gov.au), retrieved verbatim from
+    https://consumerdatastandardsaustralia.github.io/standards/includes/swagger/cds_banking.json
+    and converted from JSON to YAML without content change. It is the SHARED
+    Consumer Data Standards contract that all Australian banking data holders
+    conform to - it is NOT a RACQ-proprietary specification. RACQ Bank does not
+    publish its own bank-specific OpenAPI. The spec's declared server
+    (https://mtls.dh.example.com/cds-au/v1) is the standard's placeholder; the
+    real RACQ Bank public base is https://cdrbank.racq.com.au/cds-au/v1. The spec
+    includes the two public PRD paths (/banking/products,
+    /banking/products/{productId}) plus the authenticated banking endpoints.
+  authModel:
+    productReferenceData: none (public, unauthenticated) - x-v header version negotiation only
+    consumerData: OAuth2 / OIDC (CDR FAPI profile), MTLS, ADR accreditation + consumer consent
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://cdrbank.racq.com.au/cds-au/v1
+      documented: true
+      note: Public PRD confirmed via GET /banking/products (HTTP 200, x-v 4 and x-v 5, 39 products).
+  versionNegotiation:
+    header: x-v
+    supported: [4, 5]
+    note: x-v 1-3 and x-v 6+ return HTTP 406 UnsupportedVersion; x-v 4 and x-v 5 return HTTP 200.
+  endpointsConfirmedRest:
+    - GET https://cdrbank.racq.com.au/cds-au/v1/banking/products
+  endpointsStandardNotPublic:
+    - GET /banking/products/{productId} (public per CDS; documented on RACQ API access page)
+    - GET /banking/accounts (authenticated - ADR/consent required)
+    - GET /banking/accounts/{accountId}/transactions (authenticated - ADR/consent required)
+    - GET /banking/payments/scheduled (authenticated - ADR/consent required)
+sources:
+  - url: https://cdrbank.racq.com.au/cds-au/v1/banking/products
+    type: APIReference
+    note: Live PRD endpoint. HTTP 200 with x-v 4 (and x-v 5); 39 products (meta.totalRecords 39). Requires x-v header (x-v 1-3 / 6+ return 406 UnsupportedVersion).
+  - url: https://www.racq.com.au/banking/open-banking/api-access
+    type: Documentation
+    note: RACQ Bank open banking API access page (HTTP 200). Documents both product endpoints, states authentication is not required, notes alignment with Consumer Data Standards, support icc_support@racq.com.au.
+  - url: https://consumerdatastandardsaustralia.github.io/standards/includes/swagger/cds_banking.json
+    type: OpenAPI
+    note: DSB Consumer Data Standards banking OpenAPI (CDR Banking API v1.36.0); shared standard harvested verbatim and converted to YAML.
+actions:
+  openapiPath: openapi/racq-bank-cds-banking-products-openapi.yml
+  apisYmlUpdated: true
+  reason: |
+    Bootstrapped the RACQ Bank provider profile with its confirmed live public CDR
+    Product Reference Data API (host cdrbank.racq.com.au) and the shared DSB CDS
+    banking OpenAPI. No proprietary bank spec and no developer portal exist to
+    harvest.
