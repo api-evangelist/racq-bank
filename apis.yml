@@ -25,7 +25,7 @@ tags:
 - ADI
 - Mutual
 created: '2026-07-20'
-modified: '2026-07-21'
+modified: '2026-07-21T13:00:00Z'
 specificationVersion: '0.19'
 apis:
 - aid: racq-bank:racq-bank-cdr-product-reference-data-api
@@ -195,6 +195,8 @@ common:
 - type: Website
   url: https://www.racq.com.au/
 - type: Documentation
+  url: https://www.racq.com.au/banking/open-banking/api-access
+- type: GettingStarted
   url: https://www.racq.com.au/banking/open-banking/api-access
 - type: Portal
   url: https://www.racq.com.au/banking/open-banking
