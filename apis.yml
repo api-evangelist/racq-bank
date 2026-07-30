@@ -13,7 +13,19 @@ description: RACQ Bank is the retail banking division of RACQ (The Royal Automob
   Product Reference Data (PRD) API conforming to the DSB Consumer Data Standards,
   alongside the accredited-data-recipient consumer-data-sharing channels mandated of
   every Australian bank.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/racq-bank.png
 tags:
 - Financial
 - Banks
@@ -28,145 +40,118 @@ created: '2026-07-20'
 modified: '2026-07-21T13:00:00Z'
 specificationVersion: '0.19'
 apis:
-- aid: racq-bank:racq-bank-cdr-product-reference-data-api
-  name: RACQ Bank CDR Product Reference Data API
-  tags:
-  - CDR
-  - Open Banking
-  - Product Reference Data
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: racq-bank:racq-bank-banking-account-balances-api
+  name: RACQ Bank Banking Account Balances API
+  description: Banking Account Balance endpoints
   humanURL: https://www.racq.com.au/banking/open-banking/api-access
   baseURL: https://cdrbank.racq.com.au/cds-au/v1
-  properties:
-  - url: https://www.racq.com.au/banking/open-banking/api-access
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
-    type: APIReference
-  - url: openapi/racq-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Public, unauthenticated Consumer Data Right Product Reference Data
-    (PRD) API exposing RACQ Bank's publicly available banking products (transaction
-    and savings accounts, term deposits, home and personal loans, credit cards) via
-    the standard CDS endpoints GET /banking/products and GET
-    /banking/products/{productId}. Confirmed live (HTTP 200, x-v 4 and x-v 5, 39
-    products) at https://cdrbank.racq.com.au/cds-au/v1.
-- aid: racq-bank:racq-bank-cdr-accounts-balances-api
-  name: RACQ Bank CDR Accounts & Balances API
   tags:
-  - CDR
-  - Open Banking
-  - Accounts
-  - Balances
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.racq.com.au/banking/open-banking
-  baseURL: https://cdrbank.racq.com.au/cds-au/v1/banking/accounts
+  - Banking Account Balances
   properties:
-  - url: https://www.racq.com.au/banking/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
-    type: APIReference
-  - url: openapi/racq-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right accounts and balances channel
-    that RACQ Bank implements as a mandated CDR data holder. Covers the standardized
-    DSB Consumer Data Standards endpoints GET /banking/accounts (list accounts), GET
-    /banking/accounts/balances (bulk balances), GET /banking/accounts/{accountId}/balance
-    (single balance) and GET /banking/accounts/{accountId} (account detail). Unlike
-    the public Product Reference Data API, these endpoints return a customer's own
-    data and require the CDR consent + accredited-data-recipient (ADR) authorization
-    flow over MTLS; unauthenticated probes return HTTP 403. Endpoints and schemas are
-    defined by the shared DSB CDR Banking API standard (v1.36.0), not proprietary to
-    RACQ Bank. Base host confirmed at https://cdrbank.racq.com.au/cds-au/v1.
-- aid: racq-bank:racq-bank-cdr-transactions-api
-  name: RACQ Bank CDR Transactions API
+  - type: OpenAPI
+    url: openapi/racq-bank-banking-account-balances-api-openapi.yml
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking/api-access
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking
+- aid: racq-bank:racq-bank-banking-account-direct-debits-api
+  name: RACQ Bank Banking Account Direct Debits API
+  description: Banking Account Direct Debit endpoints
+  humanURL: https://www.racq.com.au/banking/open-banking/api-access
+  baseURL: https://cdrbank.racq.com.au/cds-au/v1
   tags:
-  - CDR
-  - Open Banking
-  - Transactions
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.racq.com.au/banking/open-banking
-  baseURL: https://cdrbank.racq.com.au/cds-au/v1/banking/accounts
+  - Banking Account Direct Debits
   properties:
-  - url: https://www.racq.com.au/banking/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
-    type: APIReference
-  - url: openapi/racq-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right transactions channel exposing
-    a customer's account transaction history through the standardized DSB Consumer
-    Data Standards endpoints GET /banking/accounts/{accountId}/transactions (list
-    transactions with filtering) and GET
-    /banking/accounts/{accountId}/transactions/{transactionId} (transaction detail).
-    As with all consumer data-sharing endpoints, access requires the CDR consent and
-    accredited-data-recipient (ADR) authorization flow over MTLS rather than being
-    publicly reachable. The paths and payload schemas come from the shared DSB CDR
-    Banking API standard (v1.36.0) that every Australian ADI is required to implement,
-    not from a bank-proprietary specification. Base host confirmed at
-    https://cdrbank.racq.com.au/cds-au/v1.
-- aid: racq-bank:racq-bank-cdr-direct-debits-scheduled-payments-api
-  name: RACQ Bank CDR Direct Debits & Scheduled Payments API
+  - type: OpenAPI
+    url: openapi/racq-bank-banking-account-direct-debits-api-openapi.yml
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking/api-access
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking
+- aid: racq-bank:racq-bank-banking-account-scheduled-payments-api
+  name: RACQ Bank Banking Account Scheduled Payments API
+  description: Banking Account Scheduled Payment endpoints
+  humanURL: https://www.racq.com.au/banking/open-banking/api-access
+  baseURL: https://cdrbank.racq.com.au/cds-au/v1
   tags:
-  - CDR
-  - Open Banking
-  - Direct Debits
-  - Scheduled Payments
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.racq.com.au/banking/open-banking
-  baseURL: https://cdrbank.racq.com.au/cds-au/v1/banking/accounts
+  - Banking Account Scheduled Payments
   properties:
-  - url: https://www.racq.com.au/banking/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
-    type: APIReference
-  - url: openapi/racq-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right channel for a customer's direct
-    debit authorizations and scheduled/recurring payments, implemented by RACQ Bank
-    per the DSB Consumer Data Standards. Covers GET
-    /banking/accounts/{accountId}/direct-debits and GET /banking/accounts/direct-debits
-    (bulk) for direct debits, plus GET /banking/accounts/{accountId}/payments/scheduled
-    and GET /banking/payments/scheduled (bulk) for scheduled payments. These endpoints
-    return customer-specific arrangements and require the CDR consent +
-    accredited-data-recipient (ADR) authorization flow over MTLS. Endpoint paths and
-    schemas are defined by the shared DSB CDR Banking API standard (v1.36.0), a
-    surface every Australian ADI must implement, not proprietary to RACQ Bank. Base
-    host confirmed at https://cdrbank.racq.com.au/cds-au/v1.
-- aid: racq-bank:racq-bank-cdr-payees-api
-  name: RACQ Bank CDR Payees API
+  - type: OpenAPI
+    url: openapi/racq-bank-banking-account-scheduled-payments-api-openapi.yml
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking/api-access
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking
+- aid: racq-bank:racq-bank-banking-account-transactions-api
+  name: RACQ Bank Banking Account Transactions API
+  description: Banking Account Transaction endpoints
+  humanURL: https://www.racq.com.au/banking/open-banking/api-access
+  baseURL: https://cdrbank.racq.com.au/cds-au/v1
   tags:
-  - CDR
-  - Open Banking
-  - Payees
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.racq.com.au/banking/open-banking
-  baseURL: https://cdrbank.racq.com.au/cds-au/v1/banking/payees
+  - Banking Account Transactions
   properties:
-  - url: https://www.racq.com.au/banking/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
-    type: APIReference
-  - url: openapi/racq-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right payees channel exposing a
-    customer's saved payees through the standardized DSB Consumer Data Standards
-    endpoints GET /banking/payees (list saved payees) and GET /banking/payees/{payeeId}
-    (payee detail, including domestic, biller and international payee schemes). Access
-    requires the CDR consent and accredited-data-recipient (ADR) authorization flow
-    over MTLS rather than being publicly reachable. The endpoint paths and payload
-    schemas are defined by the shared DSB CDR Banking API standard (v1.36.0) that
-    every Australian ADI is required to implement, not by a bank-proprietary
-    specification. Base host confirmed at https://cdrbank.racq.com.au/cds-au/v1.
+  - type: OpenAPI
+    url: openapi/racq-bank-banking-account-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking/api-access
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking
+- aid: racq-bank:racq-bank-banking-accounts-api
+  name: RACQ Bank Banking Accounts API
+  description: Banking Account endpoints
+  humanURL: https://www.racq.com.au/banking/open-banking/api-access
+  baseURL: https://cdrbank.racq.com.au/cds-au/v1
+  tags:
+  - Banking Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/racq-bank-banking-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking/api-access
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking
+- aid: racq-bank:racq-bank-banking-payees-api
+  name: RACQ Bank Banking Payees API
+  description: Banking Payee endpoints
+  humanURL: https://www.racq.com.au/banking/open-banking/api-access
+  baseURL: https://cdrbank.racq.com.au/cds-au/v1
+  tags:
+  - Banking Payees
+  properties:
+  - type: OpenAPI
+    url: openapi/racq-bank-banking-payees-api-openapi.yml
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking/api-access
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking
+- aid: racq-bank:racq-bank-banking-products-api
+  name: RACQ Bank Banking Products API
+  description: Banking Product endpoints
+  humanURL: https://www.racq.com.au/banking/open-banking/api-access
+  baseURL: https://cdrbank.racq.com.au/cds-au/v1
+  tags:
+  - Banking Products
+  properties:
+  - type: OpenAPI
+    url: openapi/racq-bank-banking-products-api-openapi.yml
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking/api-access
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
+  - type: Documentation
+    url: https://www.racq.com.au/banking/open-banking
 common:
 - type: AgenticAccess
   url: agentic-access/racq-bank-agentic-access.yml
