@@ -165,6 +165,9 @@ apis:
   - type: Documentation
     url: https://www.racq.com.au/banking/open-banking
 common:
+- type: CapabilityMap
+  url: capabilities/racq-bank-capability-edges.yml
+  name: RACQ Bank Business Capability Map
 - type: AgenticAccess
   url: agentic-access/racq-bank-agentic-access.yml
 - type: DomainSecurity
