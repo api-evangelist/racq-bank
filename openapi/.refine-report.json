@@ -1,13 +1,7 @@
 {
   "provider": "racq-bank",
   "sources": [
-    "racq-bank-banking-account-balances-api-openapi.yml",
-    "racq-bank-banking-account-direct-debits-api-openapi.yml",
-    "racq-bank-banking-account-scheduled-payments-api-openapi.yml",
-    "racq-bank-banking-account-transactions-api-openapi.yml",
-    "racq-bank-banking-accounts-api-openapi.yml",
-    "racq-bank-banking-payees-api-openapi.yml",
-    "racq-bank-banking-products-api-openapi.yml"
+    "_original/racq-bank-cds-banking-products-openapi.yml"
   ],
   "outputs": [
     "racq-bank-banking-account-balances-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "racq-bank-cds-banking-products-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "racq-bank-banking-account-balances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "racq-bank-banking-account-direct-debits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "racq-bank-banking-account-scheduled-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "racq-bank-banking-account-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "racq-bank-banking-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "racq-bank-banking-payees-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "racq-bank-banking-products-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
